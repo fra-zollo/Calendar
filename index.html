@@ -21,11 +21,10 @@
             --text-muted: #6b7280;
             --border: #e5e7eb;
             
-            /* NUOVI COLORI STATUS */
-            --sure-color: #ef4444; /* Rosso acceso per le assenze certe */
-            --sure-bg: #fee2e2;    /* Sfondo rosso chiaro */
-            --maybe-color: #f59e0b; /* Ambra per i forse */
-            --maybe-bg: #fef3c7;    /* Sfondo ambra chiaro */
+            --sure-color: #ef4444; 
+            --sure-bg: #fee2e2;    
+            --maybe-color: #f59e0b; 
+            --maybe-bg: #fef3c7;    
         }
 
         body {
@@ -38,14 +37,17 @@
             min-height: 100vh;
         }
 
+        /* ESPANSO PER DESKTOP: Max width portato a 1000px e centrato */
         .app-container {
             width: 100%;
-            max-width: 412px;
+            max-width: 1000px; 
             background-color: var(--bg-color);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             position: relative;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.03);
         }
 
         /* HEADER E TABS */
@@ -58,12 +60,18 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .header h1 { margin: 0; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; text-align: center; }
-        .header p { margin: 5px 0 20px; font-size: 0.9rem; opacity: 0.9; text-align: center; }
+        .header h1 { margin: 0; font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px; text-align: center; }
+        .header p { margin: 5px 0 20px; font-size: 1rem; opacity: 0.9; text-align: center; }
 
+        /* TABS CENTRATE PER DESKTOP */
         .tabs {
-            display: flex; background: rgba(0,0,0,0.1); border-radius: 12px;
-            margin-bottom: 20px; padding: 4px;
+            display: flex; 
+            background: rgba(0,0,0,0.1); 
+            border-radius: 12px;
+            margin: 0 auto 20px; 
+            padding: 4px;
+            max-width: 400px; /* Evita che le tab diventino lunghissime su PC */
+            width: 100%;
         }
 
         .tab-btn {
@@ -73,11 +81,19 @@
         }
         .tab-btn.active { background: white; color: var(--primary); opacity: 1; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
-        /* FORM */
+        /* CARD E FORM */
         .card {
             background: var(--card-bg); margin: -15px 20px 20px; padding: 24px;
             border-radius: 16px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); z-index: 10;
         }
+        
+        /* FORM CENTRATO PER DESKTOP */
+        .form-wrapper {
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px; text-transform: uppercase; }
         .form-control {
@@ -113,21 +129,19 @@
         .success-icon svg { width: 30px; height: 30px; }
         .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; }
 
-        /* VISUALIZZAZIONE GANTT CHART */
+        /* VISUALIZZAZIONE GANTT CHART PULITA */
         #view-trips { display: none; }
         
         .legend { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
-        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
-        .legend-color { width: 12px; height: 12px; border-radius: 3px; }
-        
-        /* I colori aggiornati nella legenda */
+        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
+        .legend-color { width: 14px; height: 14px; border-radius: 3px; }
         .legend-color.sure { background: var(--sure-color); }
         .legend-color.maybe { background: var(--maybe-color); }
 
-        .gantt-container { margin-bottom: 30px; }
+        .gantt-container { margin-bottom: 40px; }
         .month-header {
-            color: var(--text-main); font-size: 1.15rem; margin: 0 0 12px;
-            font-weight: 700; border-left: 4px solid var(--primary); padding-left: 10px;
+            color: var(--text-main); font-size: 1.25rem; margin: 0 0 16px;
+            font-weight: 700; border-left: 4px solid var(--primary); padding-left: 12px;
         }
         .gantt-scroll {
             overflow-x: auto;
@@ -135,38 +149,40 @@
             -webkit-overflow-scrolling: touch; 
         }
         
-        /* Modificato: rimosso lo sfondo fisso bianco per far passare i colori del mese */
+        /* Griglia bianca pulita e moderna */
         .gantt-grid {
             display: grid;
             gap: 4px 1px; 
-            padding: 8px; 
-            border-radius: 12px; /* Angoli stondati per il box del mese */
+            padding: 16px; 
+            border-radius: 12px; 
+            background: #ffffff;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
         
         .gantt-day-header {
-            font-size: 0.75rem; color: var(--text-main); text-align: center;
-            border-bottom: 2px solid rgba(0,0,0,0.1); padding-bottom: 4px; margin-bottom: 4px; font-weight: 600;
+            font-size: 0.8rem; color: var(--text-main); text-align: center;
+            border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 6px; margin-bottom: 8px; font-weight: 600;
         }
         .gantt-day-header.weekend { color: #ef4444; }
 
         .gantt-bar {
-            border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: white;
-            height: 28px; display: flex; align-items: center; overflow: hidden;
+            border-radius: 6px; font-size: 0.8rem; font-weight: 600; color: white;
+            height: 32px; display: flex; align-items: center; overflow: hidden;
             padding: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); white-space: nowrap;
         }
         
-        /* Colori aggiornati delle barre */
         .gantt-bar.sure { background-color: var(--sure-color); }
         .gantt-bar.maybe { background-color: var(--maybe-color); }
         
         .gantt-bar span {
             position: sticky;
-            left: 6px;
-            padding-right: 6px;
+            left: 8px;
+            padding-right: 8px;
         }
 
-        .loading-text { text-align: center; color: var(--text-muted); padding: 20px; }
-        .empty-state { text-align: center; color: var(--text-muted); padding: 20px; display: none; font-size: 1.1rem; }
+        .loading-text { text-align: center; color: var(--text-muted); padding: 30px; font-size: 1.1rem; }
+        .empty-state { text-align: center; color: var(--text-muted); padding: 30px; display: none; font-size: 1.1rem; }
     </style>
 </head>
 <body>
@@ -185,47 +201,49 @@
         <div class="card">
             
             <div id="add-trip-view">
-                <form id="tracker-form">
-                    <div class="form-group">
-                        <label for="nome">Who are you?</label>
-                        <input type="text" id="nome" class="form-control" placeholder="E.g. Francesco" required>
-                    </div>
+                <div class="form-wrapper">
+                    <form id="tracker-form">
+                        <div class="form-group">
+                            <label for="nome">Who are you?</label>
+                            <input type="text" id="nome" class="form-control" placeholder="E.g. Francesco" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="status">How sure are you?</label>
-                        <select id="status" class="form-control" required>
-                            <option value="For sure out">For sure out! 🎒</option>
-                            <option value="Out (Maybe)">Hmm, Maybe out 🤔</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label for="status">How sure are you?</label>
+                            <select id="status" class="form-control" required>
+                                <option value="For sure out">For sure out! 🎒</option>
+                                <option value="Out (Maybe)">Hmm, Maybe out 🤔</option>
+                            </select>
+                        </div>
 
-                    <div id="date-ranges-container">
-                        <div class="date-range-item">
-                            <div class="dates-grid">
-                                <div class="form-group">
-                                    <label>Leaving on</label>
-                                    <input type="date" class="form-control start-date" min="2026-06-01" max="2026-09-30" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Back on</label>
-                                    <input type="date" class="form-control end-date" min="2026-06-01" max="2026-09-30" required>
+                        <div id="date-ranges-container">
+                            <div class="date-range-item">
+                                <div class="dates-grid">
+                                    <div class="form-group">
+                                        <label>Leaving on</label>
+                                        <input type="date" class="form-control start-date" min="2026-06-01" max="2026-09-30" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Back on</label>
+                                        <input type="date" class="form-control end-date" min="2026-06-01" max="2026-09-30" required>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <button type="button" class="btn-add-date" onclick="addDateRange()">+ Add another trip date</button>
+
+                        <button type="submit" id="submit-btn" class="btn-submit">Add to Spreadsheet</button>
+                    </form>
+
+                    <div id="success-message">
+                        <div class="success-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <h3>Saved!</h3>
+                        <p>The spreadsheet has been updated.</p>
+                        <button type="button" class="btn-outline" onclick="resetForm()">Add more trips</button>
                     </div>
-
-                    <button type="button" class="btn-add-date" onclick="addDateRange()">+ Add another trip date</button>
-
-                    <button type="submit" id="submit-btn" class="btn-submit">Add to Spreadsheet</button>
-                </form>
-
-                <div id="success-message">
-                    <div class="success-icon">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                    </div>
-                    <h3>Saved!</h3>
-                    <p>The spreadsheet has been updated.</p>
-                    <button type="button" class="btn-outline" onclick="resetForm()">Add more trips</button>
                 </div>
             </div>
 
@@ -347,15 +365,8 @@
         }
 
         // ==========================================
-        // MOTORE DELLA TIMELINE (GANTT CHART)
+        // TIMELINE ENGINE (PULITO E BIANCO)
         // ==========================================
-        
-        // Colori pastello ultra-leggeri specifici per ogni mese (da Gennaio a Dicembre)
-        const monthBgColors = [
-            "#f8fafc", "#f0fdf4", "#eff6ff", "#fff1f2", "#fdf4ff", "#eff6ff", // Gen - Giu (Giu è azzurrino)
-            "#fefce8", "#f0fdfa", "#fef2f2", "#ecfdf5", "#fefce8", "#f0f9ff"  // Lug - Dic (Lug giallino, Ago verdino)
-        ];
-
         function loadTrips() {
             const container = document.getElementById('trips-container');
             const emptyState = document.getElementById('empty-state');
@@ -421,15 +432,13 @@
 
                     sortedKeys.forEach(key => {
                         const monthObj = timelineData[key];
-                        // Assegna il colore di sfondo specifico per il mese corrente
-                        const bgColor = monthBgColors[monthObj.month];
 
                         html += `<div class="gantt-container">`;
                         html += `<h3 class="month-header">${monthObj.name}</h3>`;
                         html += `<div class="gantt-scroll">`;
                         
-                        // Applica il colore di sfondo alla griglia
-                        html += `<div class="gantt-grid" style="grid-template-columns: repeat(${monthObj.days}, minmax(32px, 1fr)); background-color: ${bgColor};">`;
+                        // Griglia bianca senza i colori di background inline
+                        html += `<div class="gantt-grid" style="grid-template-columns: repeat(${monthObj.days}, minmax(32px, 1fr));">`;
 
                         for(let d = 1; d <= monthObj.days; d++) {
                             const dateObj = new Date(monthObj.year, monthObj.month, d);
