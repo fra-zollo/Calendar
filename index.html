@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Brussels Tracker</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#2563eb">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 412px;
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* HEADER AZZURRO */
+        .header {
+            background-color: var(--primary);
+            color: white;
+            padding: calc(20px + env(safe-area-inset-top, 0px)) 24px 30px;
+            text-align: center;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* FORM CARD */
+        .card {
+            background: var(--card-bg);
+            margin: -15px 20px 20px;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            color: var(--text-main);
+            background-color: #f9fafb;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            -webkit-appearance: none; /* Rimuove lo stile predefinito su iOS */
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            background-color: #ffffff;
+        }
+
+        /* FIX PER I SELECT SU IOS */
+        select.form-control {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        /* GRIGLIA DATE */
+        .dates-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* BOTTONE SUBMIT */
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-submit:active {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-submit:disabled {
+            background-color: #93c5fd;
+            cursor: not-allowed;
+        }
+
+        /* SCHERMATA DI SUCCESSO */
+        #success-message {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .success-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #d1fae5;
+            color: #059669;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+
+        .success-icon svg {
+            width: 30px;
+            height: 30px;
+        }
+
+        #success-message h3 {
+            margin: 0 0 10px;
+            color: var(--text-main);
+        }
+
+        #success-message p {
+            color: var(--text-muted);
+            margin: 0 0 20px;
+            font-size: 0.95rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="header">
+            <h1>Out of Brussels? ✈️</h1>
+            <p>Let the group know your plans</p>
+        </div>
+
+        <div class="card">
+            <form id="tracker-form">
+                
+                <div class="form-group">
+                    <label for="nome">Who are you?</label>
+                    <input type="text" id="nome" class="form-control" placeholder="E.g. Francesco" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">How sure are you?</label>
+                    <select id="status" class="form-control" required>
+                        <option value="Out (Maybe)">Hmm, Maybe out 🤔</option>
+                        <option value="For sure out">For sure out! 🎒</option>
+                    </select>
+                </div>
+
+                <div class="dates-grid">
+                    <div class="form-group">
+                        <label for="dataInizio">Leaving on</label>
+                        <input type="date" id="dataInizio" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dataFine">Back on</label>
+                        <input type="date" id="dataFine" class="form-control" required>
+                    </div>
+                </div>
+
+                <button type="submit" id="submit-btn" class="btn-submit">Add to Spreadsheet</button>
+            </form>
+
+            <div id="success-message">
+                <div class="success-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h3>Saved!</h3>
+                <p>The spreadsheet has been updated.</p>
+                <button type="button" class="btn-outline" onclick="resetForm()">Add another trip</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // INCOLLA QUI IL TUO URL DI GOOGLE SCRIPT!
+        // ==========================================
+        const scriptURL = https://script.google.com/macros/s/AKfycbw9QHNZ3xZKL61jf6PnciLA7HjOl4szHYgD8PqRI9ICetVUAqn7FJnQ9A1Mqk10FCduQw/exec;
+        
+        const form = document.getElementById('tracker-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const successMessage = document.getElementById('success-message');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault(); // Evita che la pagina si ricarichi
+
+            // Mette il bottone in caricamento
+            submitBtn.innerText = 'Saving... ⏳';
+            submitBtn.disabled = true;
+
+            // Raccoglie i dati dai campi
+            const payload = {
+                nome: document.getElementById('nome').value,
+                status: document.getElementById('status').value,
+                dataInizio: document.getElementById('dataInizio').value,
+                dataFine: document.getElementById('dataFine').value
+            };
+
+            // Spedisce i dati al Google Sheet
+            fetch(scriptURL, {
+                method: 'POST',
+                // Mandiamo come 'text/plain' per evitare blocchi CORS dal browser
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Successo! Nascondi il form e mostra la spunta verde
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                submitBtn.innerText = 'Add to Spreadsheet';
+                submitBtn.disabled = false;
+            })
+            .catch(error => {
+                console.error('Errore!', error.message);
+                alert('Oops! Qualcosa è andato storto. Riprova.');
+                submitBtn.innerText = 'Add to Spreadsheet';
+                submitBtn.disabled = false;
+            });
+        });
+
+        // Funzione per inserire un nuovo viaggio
+        function resetForm() {
+            form.reset();
+            successMessage.style.display = 'none';
+            form.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
