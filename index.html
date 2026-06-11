@@ -20,7 +20,12 @@
             --text-main: #1f2937;
             --text-muted: #6b7280;
             --border: #e5e7eb;
-            --maybe-color: #f59e0b; /* Colore Ambra per i "Forse" */
+            
+            /* NUOVI COLORI STATUS */
+            --sure-color: #ef4444; /* Rosso acceso per le assenze certe */
+            --sure-bg: #fee2e2;    /* Sfondo rosso chiaro */
+            --maybe-color: #f59e0b; /* Ambra per i forse */
+            --maybe-bg: #fef3c7;    /* Sfondo ambra chiaro */
         }
 
         body {
@@ -108,22 +113,18 @@
         .success-icon svg { width: 30px; height: 30px; }
         .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; }
 
-        /* NUOVA VISUALIZZAZIONE GANTT CHART / TIMELINE VISIVA */
+        /* VISUALIZZAZIONE GANTT CHART */
         #view-trips { display: none; }
         
-        .legend {
-            display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;
-        }
-        .legend-item {
-            display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;
-        }
+        .legend { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
+        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
         .legend-color { width: 12px; height: 12px; border-radius: 3px; }
-        .legend-color.sure { background: var(--primary); }
+        
+        /* I colori aggiornati nella legenda */
+        .legend-color.sure { background: var(--sure-color); }
         .legend-color.maybe { background: var(--maybe-color); }
 
-        .gantt-container {
-            margin-bottom: 30px;
-        }
+        .gantt-container { margin-bottom: 30px; }
         .month-header {
             color: var(--text-main); font-size: 1.15rem; margin: 0 0 12px;
             font-weight: 700; border-left: 4px solid var(--primary); padding-left: 10px;
@@ -131,20 +132,21 @@
         .gantt-scroll {
             overflow-x: auto;
             padding-bottom: 10px;
-            /* Abilita lo scrolling super fluido su iOS */
             -webkit-overflow-scrolling: touch; 
         }
+        
+        /* Modificato: rimosso lo sfondo fisso bianco per far passare i colori del mese */
         .gantt-grid {
             display: grid;
-            gap: 4px 1px; /* Spazio tra righe e colonne */
-            background: #ffffff;
-            /* La larghezza dipenderà dai giorni del mese, ma mai meno di 32px per giorno (per evitare scritte illeggibili) */
+            gap: 4px 1px; 
+            padding: 8px; 
+            border-radius: 12px; /* Angoli stondati per il box del mese */
         }
+        
         .gantt-day-header {
-            font-size: 0.75rem; color: var(--text-muted); text-align: center;
-            border-bottom: 2px solid var(--border); padding-bottom: 4px; margin-bottom: 4px; font-weight: 600;
+            font-size: 0.75rem; color: var(--text-main); text-align: center;
+            border-bottom: 2px solid rgba(0,0,0,0.1); padding-bottom: 4px; margin-bottom: 4px; font-weight: 600;
         }
-        /* Stile weekend per distinguere facilmente i sabati/domeniche */
         .gantt-day-header.weekend { color: #ef4444; }
 
         .gantt-bar {
@@ -152,10 +154,11 @@
             height: 28px; display: flex; align-items: center; overflow: hidden;
             padding: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); white-space: nowrap;
         }
-        .gantt-bar.sure { background-color: var(--primary); }
+        
+        /* Colori aggiornati delle barre */
+        .gantt-bar.sure { background-color: var(--sure-color); }
         .gantt-bar.maybe { background-color: var(--maybe-color); }
         
-        /* Magia CSS: il nome rimane visibile mentre scorri lateralmente! */
         .gantt-bar span {
             position: sticky;
             left: 6px;
@@ -228,7 +231,7 @@
 
             <div id="view-trips">
                 <div class="legend">
-                    <div class="legend-item"><div class="legend-color sure"></div> For sure</div>
+                    <div class="legend-item"><div class="legend-color sure"></div> Away</div>
                     <div class="legend-item"><div class="legend-color maybe"></div> Maybe</div>
                 </div>
                 
@@ -346,6 +349,13 @@
         // ==========================================
         // MOTORE DELLA TIMELINE (GANTT CHART)
         // ==========================================
+        
+        // Colori pastello ultra-leggeri specifici per ogni mese (da Gennaio a Dicembre)
+        const monthBgColors = [
+            "#f8fafc", "#f0fdf4", "#eff6ff", "#fff1f2", "#fdf4ff", "#eff6ff", // Gen - Giu (Giu è azzurrino)
+            "#fefce8", "#f0fdfa", "#fef2f2", "#ecfdf5", "#fefce8", "#f0f9ff"  // Lug - Dic (Lug giallino, Ago verdino)
+        ];
+
         function loadTrips() {
             const container = document.getElementById('trips-container');
             const emptyState = document.getElementById('empty-state');
@@ -366,24 +376,20 @@
                     const timelineData = {};
                     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-                    // Processa ogni viaggio inviato da Google Sheets
                     data.forEach(trip => {
-                        // Trucchetto per forzare l'ora locale (evita bachi di fuso orario di 1 giorno)
                         const startStr = trip.dataInizio.substring(0, 10);
                         const endStr = trip.dataFine.substring(0, 10);
                         const start = new Date(startStr + "T12:00:00");
                         const end = new Date(endStr + "T12:00:00");
                         
-                        if(end < start) return; // Ignora date inserite male
+                        if(end < start) return;
 
-                        // Controlla tutti i mesi toccati da questo viaggio (utile se qualcuno fa 28 Giu - 5 Lug)
                         let currentMonthDate = new Date(start.getFullYear(), start.getMonth(), 1);
                         const endMonthDate = new Date(end.getFullYear(), end.getMonth(), 1);
 
                         while(currentMonthDate <= endMonthDate) {
                             const year = currentMonthDate.getFullYear();
                             const month = currentMonthDate.getMonth();
-                            // Chiave per ordinare i mesi correttamente (es. 2026-06)
                             const key = `${year}-${month.toString().padStart(2, '0')}`;
 
                             if(!timelineData[key]) {
@@ -391,12 +397,11 @@
                                     year: year,
                                     month: month,
                                     name: `${monthNames[month]} ${year}`,
-                                    days: new Date(year, month + 1, 0).getDate(), // Quanti giorni ha il mese
+                                    days: new Date(year, month + 1, 0).getDate(),
                                     trips: []
                                 };
                             }
 
-                            // Calcola l'inizio e la fine della barra per QUESTO specifico mese
                             const startDay = (start.getFullYear() === year && start.getMonth() === month) ? start.getDate() : 1;
                             const endDay = (end.getFullYear() === year && end.getMonth() === month) ? end.getDate() : timelineData[key].days;
 
@@ -411,21 +416,22 @@
                         }
                     });
 
-                    // Ordina i mesi cronologicamente e disegna l'HTML
                     const sortedKeys = Object.keys(timelineData).sort();
                     let html = '';
 
                     sortedKeys.forEach(key => {
                         const monthObj = timelineData[key];
+                        // Assegna il colore di sfondo specifico per il mese corrente
+                        const bgColor = monthBgColors[monthObj.month];
+
                         html += `<div class="gantt-container">`;
                         html += `<h3 class="month-header">${monthObj.name}</h3>`;
                         html += `<div class="gantt-scroll">`;
-                        // La griglia avrà tante colonne quanti sono i giorni del mese (minimo 32px per renderla leggibile su mobile)
-                        html += `<div class="gantt-grid" style="grid-template-columns: repeat(${monthObj.days}, minmax(32px, 1fr));">`;
+                        
+                        // Applica il colore di sfondo alla griglia
+                        html += `<div class="gantt-grid" style="grid-template-columns: repeat(${monthObj.days}, minmax(32px, 1fr)); background-color: ${bgColor};">`;
 
-                        // RIGA 1: Header dei giorni
                         for(let d = 1; d <= monthObj.days; d++) {
-                            // Troviamo se è un weekend per colorare di rosso il numero
                             const dateObj = new Date(monthObj.year, monthObj.month, d);
                             const isWeekend = (dateObj.getDay() === 0 || dateObj.getDay() === 6);
                             const weekendClass = isWeekend ? 'weekend' : '';
@@ -433,7 +439,6 @@
                             html += `<div class="gantt-day-header ${weekendClass}" style="grid-column: ${d}; grid-row: 1;">${d}</div>`;
                         }
 
-                        // RIGHE SUCCESSIVE: Le barre dei viaggi (ordinate da inizio mese)
                         let row = 2;
                         monthObj.trips.sort((a,b) => a.startDay - b.startDay);
 
@@ -441,7 +446,6 @@
                             const isMaybe = trip.status.includes('Maybe');
                             const statusClass = isMaybe ? 'maybe' : 'sure';
                             
-                            // grid-column disegna la barra dal giorno di inizio (startDay) fino al giorno dopo la fine
                             html += `
                                 <div class="gantt-bar ${statusClass}" style="grid-column: ${trip.startDay} / ${trip.endDay + 1}; grid-row: ${row};">
                                     <span>${trip.nome}</span>
@@ -450,7 +454,7 @@
                             row++;
                         });
 
-                        html += `</div></div></div>`; // Chiude grid, scroll e container
+                        html += `</div></div></div>`; 
                     });
 
                     container.innerHTML = html;
