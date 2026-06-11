@@ -42,12 +42,11 @@
             position: relative;
         }
 
-        /* HEADER AZZURRO */
+        /* HEADER AZZURRO E TABS */
         .header {
             background-color: var(--primary);
             color: white;
-            padding: calc(20px + env(safe-area-inset-top, 0px)) 24px 30px;
-            text-align: center;
+            padding: calc(20px + env(safe-area-inset-top, 0px)) 24px 0;
             border-bottom-left-radius: 24px;
             border-bottom-right-radius: 24px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -58,15 +57,45 @@
             font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: -0.5px;
+            text-align: center;
         }
 
         .header p {
-            margin: 5px 0 0;
+            margin: 5px 0 20px;
             font-size: 0.9rem;
             opacity: 0.9;
+            text-align: center;
         }
 
-        /* FORM CARD */
+        .tabs {
+            display: flex;
+            background: rgba(0,0,0,0.1);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            padding: 4px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: white;
+            opacity: 0.7;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: var(--primary);
+            opacity: 1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* CARD CONDIVISA */
         .card {
             background: var(--card-bg);
             margin: -15px 20px 20px;
@@ -76,129 +105,95 @@
             z-index: 10;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
+        .form-group { margin-bottom: 20px; }
         .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            display: block; font-size: 0.85rem; font-weight: 600;
+            color: var(--text-main); margin-bottom: 8px; text-transform: uppercase;
         }
-
         .form-control {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: inherit;
-            color: var(--text-main);
-            background-color: #f9fafb;
-            box-sizing: border-box;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            -webkit-appearance: none; 
+            width: 100%; padding: 12px 14px; border: 1px solid var(--border);
+            border-radius: 8px; font-size: 1rem; font-family: inherit;
+            color: var(--text-main); background-color: #f9fafb; box-sizing: border-box;
+            -webkit-appearance: none;
         }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-            background-color: #ffffff;
-        }
-
-        /* FIX PER I SELECT SU IOS */
         select.form-control {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 16px;
-            padding-right: 40px;
+            background-repeat: no-repeat; background-position: right 12px center;
+            background-size: 16px; padding-right: 40px;
         }
+        .dates-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-        /* GRIGLIA DATE */
-        .dates-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        /* BOTTONE SUBMIT */
         .btn-submit {
-            width: 100%;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 16px;
-            font-size: 1.05rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.2s;
+            width: 100%; background-color: var(--primary); color: white; border: none;
+            padding: 16px; font-size: 1.05rem; font-weight: 600; border-radius: 8px;
+            cursor: pointer; margin-top: 10px;
+        }
+        .btn-submit:disabled { background-color: #93c5fd; }
+
+        #success-message { display: none; text-align: center; padding: 20px 0; }
+        .btn-outline {
+            background: transparent; border: 2px solid var(--primary); color: var(--primary);
+            padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: 15px;
+        }
+
+        /* STILI PER LA LISTA DEI VIAGGI */
+        #view-trips { display: none; }
+        
+        .trip-item {
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            background: #fafafa;
+        }
+        
+        .trip-header {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
+            margin-bottom: 8px;
         }
-
-        .btn-submit:active {
-            background-color: var(--primary-hover);
-        }
-
-        .btn-submit:disabled {
-            background-color: #93c5fd;
-            cursor: not-allowed;
-        }
-
-        /* SCHERMATA DI SUCCESSO */
-        #success-message {
-            display: none;
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        .success-icon {
-            width: 60px;
-            height: 60px;
-            background-color: #d1fae5;
-            color: #059669;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-        }
-
-        .success-icon svg {
-            width: 30px;
-            height: 30px;
-        }
-
-        #success-message h3 {
-            margin: 0 0 10px;
+        
+        .trip-name {
+            font-weight: 700;
+            font-size: 1.1rem;
             color: var(--text-main);
         }
-
-        #success-message p {
-            color: var(--text-muted);
-            margin: 0 0 20px;
-            font-size: 0.95rem;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            padding: 10px 20px;
-            border-radius: 6px;
+        
+        .trip-status {
+            font-size: 0.75rem;
             font-weight: 600;
-            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 12px;
+            background: #e0e7ff;
+            color: var(--primary);
+        }
+        
+        .trip-status.maybe {
+            background: #fef3c7;
+            color: #d97706;
         }
 
+        .trip-dates {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .loading-text {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 20px;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 20px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -207,68 +202,104 @@
         <div class="header">
             <h1>Out of Brussels? ✈️</h1>
             <p>Summer 2026 Tracker</p>
+            
+            <div class="tabs">
+                <div class="tab-btn active" id="tab-add" onclick="switchTab('add')">Add Trip</div>
+                <div class="tab-btn" id="tab-view" onclick="switchTab('view')">Who's Away</div>
+            </div>
         </div>
 
         <div class="card">
-            <form id="tracker-form">
-                
-                <div class="form-group">
-                    <label for="nome">Who are you?</label>
-                    <input type="text" id="nome" class="form-control" placeholder="E.g. Francesco" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="status">How sure are you?</label>
-                    <select id="status" class="form-control" required>
-                        <option value="Out (Maybe)">Hmm, Maybe out 🤔</option>
-                        <option value="For sure out">For sure out! 🎒</option>
-                    </select>
-                </div>
-
-                <div class="dates-grid">
+            
+            <div id="add-trip-view">
+                <form id="tracker-form">
                     <div class="form-group">
-                        <label for="dataInizio">Leaving on</label>
-                        <input type="date" id="dataInizio" class="form-control" min="2026-06-01" max="2026-09-30" required>
+                        <label for="nome">Who are you?</label>
+                        <input type="text" id="nome" class="form-control" placeholder="E.g. Francesco" required>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="dataFine">Back on</label>
-                        <input type="date" id="dataFine" class="form-control" min="2026-06-01" max="2026-09-30" required>
+                        <label for="status">How sure are you?</label>
+                        <select id="status" class="form-control" required>
+                            <option value="For sure out">For sure out! 🎒</option>
+                            <option value="Out (Maybe)">Hmm, Maybe out 🤔</option>
+                        </select>
                     </div>
-                </div>
 
-                <button type="submit" id="submit-btn" class="btn-submit">Add to Spreadsheet</button>
-            </form>
+                    <div class="dates-grid">
+                        <div class="form-group">
+                            <label for="dataInizio">Leaving on</label>
+                            <input type="date" id="dataInizio" class="form-control" min="2026-06-01" max="2026-09-30" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dataFine">Back on</label>
+                            <input type="date" id="dataFine" class="form-control" min="2026-06-01" max="2026-09-30" required>
+                        </div>
+                    </div>
 
-            <div id="success-message">
-                <div class="success-icon">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    <button type="submit" id="submit-btn" class="btn-submit">Add to Spreadsheet</button>
+                </form>
+
+                <div id="success-message">
+                    <div class="success-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <h3>Saved!</h3>
+                    <p>The spreadsheet has been updated.</p>
+                    <button type="button" class="btn-outline" onclick="resetForm()">Add another trip</button>
                 </div>
-                <h3>Saved!</h3>
-                <p>The spreadsheet has been updated.</p>
-                <button type="button" class="btn-outline" onclick="resetForm()">Add another trip</button>
             </div>
+
+            <div id="view-trips">
+                <div id="trips-container">
+                    <div class="loading-text">Fetching data from Google Sheets... ⏳</div>
+                </div>
+                <div class="empty-state" id="empty-state">
+                    Nobody is away yet! 🎉
+                </div>
+            </div>
+
         </div>
     </div>
 
     <script>
         // ==========================================
-        // IL TUO URL DI GOOGLE SCRIPT
+        // INCOLLA IL TUO URL DI GOOGLE SCRIPT QUI
         // ==========================================
         const scriptURL = 'https://script.google.com/macros/s/AKfycbw9QHNZ3xZKL61jf6PnciLA7HjOl4szHYgD8PqRI9ICetVUAqn7FJnQ9A1Mqk10FCduQw/exec';
         
+        // --- GESTIONE DELLE TABS ---
+        function switchTab(tab) {
+            const addView = document.getElementById('add-trip-view');
+            const viewTrips = document.getElementById('view-trips');
+            const tabAdd = document.getElementById('tab-add');
+            const tabView = document.getElementById('tab-view');
+
+            if (tab === 'add') {
+                addView.style.display = 'block';
+                viewTrips.style.display = 'none';
+                tabAdd.classList.add('active');
+                tabView.classList.remove('active');
+            } else {
+                addView.style.display = 'none';
+                viewTrips.style.display = 'block';
+                tabAdd.classList.remove('active');
+                tabView.classList.add('active');
+                loadTrips(); // Carica i dati dal foglio quando si apre la tab
+            }
+        }
+
+        // --- GESTIONE SALVATAGGIO DATI (FORM) ---
         const form = document.getElementById('tracker-form');
         const submitBtn = document.getElementById('submit-btn');
         const successMessage = document.getElementById('success-message');
 
         form.addEventListener('submit', e => {
             e.preventDefault(); 
-
-            // Mette il bottone in caricamento
             submitBtn.innerText = 'Saving... ⏳';
             submitBtn.disabled = true;
 
-            // Raccoglie i dati dai campi
             const payload = {
                 nome: document.getElementById('nome').value,
                 status: document.getElementById('status').value,
@@ -276,7 +307,6 @@
                 dataFine: document.getElementById('dataFine').value
             };
 
-            // Spedisce i dati al Google Sheet
             fetch(scriptURL, {
                 method: 'POST',
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -284,25 +314,79 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Successo! Nascondi il form e mostra la spunta verde
                 form.style.display = 'none';
                 successMessage.style.display = 'block';
                 submitBtn.innerText = 'Add to Spreadsheet';
                 submitBtn.disabled = false;
             })
             .catch(error => {
-                console.error('Errore!', error.message);
-                alert('Oops! Qualcosa è andato storto. Riprova.');
+                console.error('Errore!', error);
+                alert('Oops! Qualcosa è andato storto.');
                 submitBtn.innerText = 'Add to Spreadsheet';
                 submitBtn.disabled = false;
             });
         });
 
-        // Funzione per inserire un nuovo viaggio
         function resetForm() {
             form.reset();
             successMessage.style.display = 'none';
             form.style.display = 'block';
+        }
+
+        // --- GESTIONE LETTURA DATI (LISTA) ---
+        function formatDate(dateString) {
+            // Trasforma "2026-06-15" in "15 Jun"
+            const options = { day: 'numeric', month: 'short' };
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-GB', options);
+        }
+
+        function loadTrips() {
+            const container = document.getElementById('trips-container');
+            const emptyState = document.getElementById('empty-state');
+            
+            container.innerHTML = '<div class="loading-text">Fetching data from Google Sheets... ⏳</div>';
+            emptyState.style.display = 'none';
+
+            fetch(scriptURL)
+                .then(response => response.json())
+                .then(data => {
+                    container.innerHTML = ''; // Pulisce il caricamento
+                    
+                    if (data.length === 0) {
+                        emptyState.style.display = 'block';
+                        return;
+                    }
+
+                    // Ordina i viaggi in base alla data di inizio (dal più vicino)
+                    data.sort((a, b) => new Date(a.dataInizio) - new Date(b.dataInizio));
+
+                    // Crea l'HTML per ogni viaggio
+                    data.forEach(trip => {
+                        const isMaybe = trip.status.includes('Maybe');
+                        const statusClass = isMaybe ? 'maybe' : '';
+                        
+                        // Per pulire la data di Google (a volte manda il timestamp intero)
+                        const start = formatDate(trip.dataInizio);
+                        const end = formatDate(trip.dataFine);
+
+                        const cardHTML = `
+                            <div class="trip-item">
+                                <div class="trip-header">
+                                    <div class="trip-name">${trip.nome}</div>
+                                    <div class="trip-status ${statusClass}">${trip.status}</div>
+                                </div>
+                                <div class="trip-dates">
+                                    📅 ${start} - ${end}
+                                </div>
+                            </div>
+                        `;
+                        container.innerHTML += cardHTML;
+                    });
+                })
+                .catch(error => {
+                    container.innerHTML = '<div class="loading-text" style="color: red;">Error loading data.</div>';
+                });
         }
     </script>
 </body>
