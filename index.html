@@ -206,7 +206,7 @@
     <div class="app-container">
         <div class="header">
             <h1>Out of Brussels? ✈️</h1>
-            <p>Let the group know your plans</p>
+            <p>Summer 2026 Tracker</p>
         </div>
 
         <div class="card">
@@ -228,8 +228,14 @@
                 <div class="dates-grid">
                     <div class="form-group">
                         <label for="dataInizio">Leaving on</label>
-                        <input type="date" id="dataInizio" class="form-control" required>
+                        <input type="date" id="dataInizio" class="form-control" min="2026-06-01" max="2026-09-30" required>
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="dataFine">Back on</label>
+                        <input type="date" id="dataFine" class="form-control" min="2026-06-01" max="2026-09-30" required>
+                    </div>
+                </div>
                     
                     <div class="form-group">
                         <label for="dataFine">Back on</label>
