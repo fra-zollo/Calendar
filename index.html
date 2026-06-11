@@ -20,118 +20,48 @@
             --text-main: #1f2937;
             --text-muted: #6b7280;
             --border: #e5e7eb;
-            
             --sure-color: #ef4444; 
             --sure-bg: #fee2e2;    
             --maybe-color: #f59e0b; 
             --maybe-bg: #fef3c7;    
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-        }
+        body { margin: 0; padding: 0; font-family: 'Inter', -apple-system, sans-serif; background-color: var(--bg-color); display: flex; justify-content: center; min-height: 100vh; }
 
-        /* ESPANSO PER DESKTOP: Max width portato a 1000px e centrato */
-        .app-container {
-            width: 100%;
-            max-width: 1000px; 
-            background-color: var(--bg-color);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            margin: 0 auto;
-            box-shadow: 0 0 20px rgba(0,0,0,0.03);
-        }
+        .app-container { width: 100%; max-width: 1000px; background-color: var(--bg-color); min-height: 100vh; display: flex; flex-direction: column; position: relative; margin: 0 auto; box-shadow: 0 0 20px rgba(0,0,0,0.03); }
 
-        /* HEADER E TABS */
-        .header {
-            background-color: var(--primary);
-            color: white;
-            padding: calc(20px + env(safe-area-inset-top, 0px)) 24px 0;
-            border-bottom-left-radius: 24px;
-            border-bottom-right-radius: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
+        .header { background-color: var(--primary); color: white; padding: calc(20px + env(safe-area-inset-top, 0px)) 24px 0; border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
         .header h1 { margin: 0; font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px; text-align: center; }
         .header p { margin: 5px 0 20px; font-size: 1rem; opacity: 0.9; text-align: center; }
 
-        /* TABS CENTRATE PER DESKTOP */
-        .tabs {
-            display: flex; 
-            background: rgba(0,0,0,0.1); 
-            border-radius: 12px;
-            margin: 0 auto 20px; 
-            padding: 4px;
-            max-width: 400px; /* Evita che le tab diventino lunghissime su PC */
-            width: 100%;
-        }
-
-        .tab-btn {
-            flex: 1; padding: 10px; text-align: center; font-weight: 600;
-            font-size: 0.95rem; color: white; opacity: 0.7; cursor: pointer;
-            border-radius: 8px; transition: all 0.2s;
-        }
+        .tabs { display: flex; background: rgba(0,0,0,0.1); border-radius: 12px; margin: 0 auto 20px; padding: 4px; max-width: 400px; width: 100%; }
+        .tab-btn { flex: 1; padding: 10px; text-align: center; font-weight: 600; font-size: 0.95rem; color: white; opacity: 0.7; cursor: pointer; border-radius: 8px; transition: all 0.2s; }
         .tab-btn.active { background: white; color: var(--primary); opacity: 1; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
-        /* CARD E FORM */
-        .card {
-            background: var(--card-bg); margin: -15px 20px 20px; padding: 24px;
-            border-radius: 16px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); z-index: 10;
-        }
-        
-        /* FORM CENTRATO PER DESKTOP */
-        .form-wrapper {
-            max-width: 500px;
-            margin: 0 auto;
-            width: 100%;
-        }
+        .card { background: var(--card-bg); margin: -15px 20px 20px; padding: 24px; border-radius: 16px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); z-index: 10; }
+        .form-wrapper { max-width: 500px; margin: 0 auto; width: 100%; }
 
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px; text-transform: uppercase; }
-        .form-control {
-            width: 100%; padding: 12px 14px; border: 1px solid var(--border);
-            border-radius: 8px; font-size: 1rem; font-family: inherit;
-            color: var(--text-main); background-color: #f9fafb; box-sizing: border-box; -webkit-appearance: none;
-        }
-        select.form-control {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; padding-right: 40px;
-        }
+        .form-control { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; font-family: inherit; color: var(--text-main); background-color: #f9fafb; box-sizing: border-box; -webkit-appearance: none; }
+        select.form-control { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; padding-right: 40px; }
         .dates-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
         .date-range-item { position: relative; padding-bottom: 15px; margin-bottom: 15px; border-bottom: 1px dashed var(--border); }
         .date-range-item:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
         .remove-btn { color: #ef4444; font-size: 0.85rem; font-weight: 600; cursor: pointer; text-align: right; display: block; margin-top: -10px; margin-bottom: 10px; }
         
-        .btn-add-date {
-            width: 100%; background: transparent; color: var(--primary);
-            border: 2px dashed var(--primary); padding: 12px; border-radius: 8px;
-            font-weight: 600; cursor: pointer; margin-bottom: 20px;
-        }
-        .btn-submit {
-            width: 100%; background-color: var(--primary); color: white; border: none;
-            padding: 16px; font-size: 1.05rem; font-weight: 600; border-radius: 8px; cursor: pointer;
-        }
+        .btn-add-date { width: 100%; background: transparent; color: var(--primary); border: 2px dashed var(--primary); padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-bottom: 20px; }
+        .btn-submit { width: 100%; background-color: var(--primary); color: white; border: none; padding: 16px; font-size: 1.05rem; font-weight: 600; border-radius: 8px; cursor: pointer; }
+        .btn-submit:disabled { background-color: #93c5fd; cursor: not-allowed; }
 
         #success-message { display: none; text-align: center; padding: 20px 0; }
-        .success-icon {
-            width: 60px; height: 60px; background-color: #d1fae5; color: #059669;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;
-        }
+        .success-icon { width: 60px; height: 60px; background-color: #d1fae5; color: #059669; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; }
         .success-icon svg { width: 30px; height: 30px; }
         .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; }
 
-        /* VISUALIZZAZIONE GANTT CHART PULITA */
+        /* GANTT CHART */
         #view-trips { display: none; }
-        
         .legend { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
         .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
         .legend-color { width: 14px; height: 14px; border-radius: 3px; }
@@ -139,50 +69,39 @@
         .legend-color.maybe { background: var(--maybe-color); }
 
         .gantt-container { margin-bottom: 40px; }
-        .month-header {
-            color: var(--text-main); font-size: 1.25rem; margin: 0 0 16px;
-            font-weight: 700; border-left: 4px solid var(--primary); padding-left: 12px;
-        }
-        .gantt-scroll {
-            overflow-x: auto;
-            padding-bottom: 10px;
-            -webkit-overflow-scrolling: touch; 
-        }
+        .month-header { color: var(--text-main); font-size: 1.25rem; margin: 0 0 16px; font-weight: 700; border-left: 4px solid var(--primary); padding-left: 12px; }
+        .gantt-scroll { overflow-x: auto; padding-bottom: 10px; -webkit-overflow-scrolling: touch; }
         
-        /* Griglia bianca pulita e moderna */
-        .gantt-grid {
-            display: grid;
-            gap: 4px 1px; 
-            padding: 16px; 
-            border-radius: 12px; 
-            background: #ffffff;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-        
-        .gantt-day-header {
-            font-size: 0.8rem; color: var(--text-main); text-align: center;
-            border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 6px; margin-bottom: 8px; font-weight: 600;
-        }
+        .gantt-grid { display: grid; gap: 4px 1px; padding: 16px; border-radius: 12px; background: #ffffff; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .gantt-day-header { font-size: 0.8rem; color: var(--text-main); text-align: center; border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 6px; margin-bottom: 8px; font-weight: 600; }
         .gantt-day-header.weekend { color: #ef4444; }
 
-        .gantt-bar {
-            border-radius: 6px; font-size: 0.8rem; font-weight: 600; color: white;
-            height: 32px; display: flex; align-items: center; overflow: hidden;
-            padding: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); white-space: nowrap;
-        }
-        
+        /* Aggiunto cursore a puntatore per far capire che si può cliccare */
+        .gantt-bar { border-radius: 6px; font-size: 0.8rem; font-weight: 600; color: white; height: 32px; display: flex; align-items: center; overflow: hidden; padding: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); white-space: nowrap; cursor: pointer; transition: transform 0.1s; }
+        .gantt-bar:active { transform: scale(0.98); }
         .gantt-bar.sure { background-color: var(--sure-color); }
         .gantt-bar.maybe { background-color: var(--maybe-color); }
-        
-        .gantt-bar span {
-            position: sticky;
-            left: 8px;
-            padding-right: 8px;
-        }
+        .gantt-bar span { position: sticky; left: 8px; padding-right: 8px; }
 
         .loading-text { text-align: center; color: var(--text-muted); padding: 30px; font-size: 1.1rem; }
         .empty-state { text-align: center; color: var(--text-muted); padding: 30px; display: none; font-size: 1.1rem; }
+
+        /* MODAL PER EDITARE LE DATE */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center;
+            backdrop-filter: blur(4px);
+        }
+        .modal-content {
+            background: white; width: 90%; max-width: 400px; border-radius: 20px;
+            padding: 24px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-header h2 { margin: 0; font-size: 1.3rem; }
+        .close-modal { background: #f3f4f6; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-weight: bold; color: var(--text-muted); }
+        
+        .btn-delete { width: 100%; background-color: transparent; color: #ef4444; border: 2px solid #ef4444; padding: 12px; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer; margin-top: 10px; }
+        .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -199,7 +118,6 @@
         </div>
 
         <div class="card">
-            
             <div id="add-trip-view">
                 <div class="form-wrapper">
                     <form id="tracker-form">
@@ -232,16 +150,12 @@
                         </div>
 
                         <button type="button" class="btn-add-date" onclick="addDateRange()">+ Add another trip date</button>
-
                         <button type="submit" id="submit-btn" class="btn-submit">Add to Spreadsheet</button>
                     </form>
 
                     <div id="success-message">
-                        <div class="success-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                        </div>
+                        <div class="success-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div>
                         <h3>Saved!</h3>
-                        <p>The spreadsheet has been updated.</p>
                         <button type="button" class="btn-outline" onclick="resetForm()">Add more trips</button>
                     </div>
                 </div>
@@ -257,11 +171,47 @@
                     <div class="loading-text">Fetching data from Google Sheets... ⏳</div>
                 </div>
                 
-                <div class="empty-state" id="empty-state">
-                    Nobody is away yet! 🎉
-                </div>
+                <div class="empty-state" id="empty-state">Nobody is away yet! 🎉</div>
             </div>
+        </div>
+    </div>
 
+    <!-- MODAL PER MODIFICARE/CANCELLARE -->
+    <div class="modal-overlay" id="edit-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Trip</h2>
+                <button class="close-modal" onclick="closeModal()">✕</button>
+            </div>
+            
+            <form id="edit-form">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="edit-nome" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="edit-status" class="form-control" required>
+                        <option value="For sure out">For sure out! 🎒</option>
+                        <option value="Out (Maybe)">Hmm, Maybe out 🤔</option>
+                    </select>
+                </div>
+                <div class="dates-grid">
+                    <div class="form-group">
+                        <label>Leaving</label>
+                        <input type="date" id="edit-start" class="form-control" min="2026-06-01" max="2026-09-30" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Back</label>
+                        <input type="date" id="edit-end" class="form-control" min="2026-06-01" max="2026-09-30" required>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="submit" id="update-btn" class="btn-submit">Update Trip</button>
+                    <button type="button" id="delete-btn" class="btn-delete" onclick="deleteTrip()">Delete Trip</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -271,6 +221,8 @@
         // ==========================================
         const scriptURL = 'https://script.google.com/macros/s/AKfycbw9QHNZ3xZKL61jf6PnciLA7HjOl4szHYgD8PqRI9ICetVUAqn7FJnQ9A1Mqk10FCduQw/exec';
         
+        let currentRowToEdit = null;
+
         function switchTab(tab) {
             const addView = document.getElementById('add-trip-view');
             const viewTrips = document.getElementById('view-trips');
@@ -278,15 +230,11 @@
             const tabView = document.getElementById('tab-view');
 
             if (tab === 'add') {
-                addView.style.display = 'block';
-                viewTrips.style.display = 'none';
-                tabAdd.classList.add('active');
-                tabView.classList.remove('active');
+                addView.style.display = 'block'; viewTrips.style.display = 'none';
+                tabAdd.classList.add('active'); tabView.classList.remove('active');
             } else {
-                addView.style.display = 'none';
-                viewTrips.style.display = 'block';
-                tabAdd.classList.remove('active');
-                tabView.classList.add('active');
+                addView.style.display = 'none'; viewTrips.style.display = 'block';
+                tabAdd.classList.remove('active'); tabView.classList.add('active');
                 loadTrips(); 
             }
         }
@@ -298,27 +246,21 @@
             div.innerHTML = `
                 <span class="remove-btn" onclick="this.parentElement.remove()">Remove ✕</span>
                 <div class="dates-grid">
-                    <div class="form-group" style="margin-bottom:0;">
-                        <label>Leaving on</label>
-                        <input type="date" class="form-control start-date" min="2026-06-01" max="2026-09-30" required>
-                    </div>
-                    <div class="form-group" style="margin-bottom:0;">
-                        <label>Back on</label>
-                        <input type="date" class="form-control end-date" min="2026-06-01" max="2026-09-30" required>
-                    </div>
+                    <div class="form-group" style="margin-bottom:0;"><label>Leaving on</label><input type="date" class="form-control start-date" min="2026-06-01" max="2026-09-30" required></div>
+                    <div class="form-group" style="margin-bottom:0;"><label>Back on</label><input type="date" class="form-control end-date" min="2026-06-01" max="2026-09-30" required></div>
                 </div>
             `;
             container.appendChild(div);
         }
 
+        // SALVATAGGIO NUOVI VIAGGI
         const form = document.getElementById('tracker-form');
         const submitBtn = document.getElementById('submit-btn');
         const successMessage = document.getElementById('success-message');
 
         form.addEventListener('submit', e => {
             e.preventDefault(); 
-            submitBtn.innerText = 'Saving... ⏳';
-            submitBtn.disabled = true;
+            submitBtn.innerText = 'Saving... ⏳'; submitBtn.disabled = true;
 
             const nome = document.getElementById('nome').value;
             const status = document.getElementById('status').value;
@@ -326,30 +268,23 @@
             
             const requests = Array.from(dateItems).map(item => {
                 const payload = {
+                    action: "add", // Importante per dire a Google cosa fare
                     nome: nome,
                     status: status,
                     dataInizio: item.querySelector('.start-date').value,
                     dataFine: item.querySelector('.end-date').value
                 };
-                return fetch(scriptURL, {
-                    method: 'POST',
-                    headers: { "Content-Type": "text/plain;charset=utf-8" },
-                    body: JSON.stringify(payload)
-                });
+                return fetch(scriptURL, { method: 'POST', headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) });
             });
 
             Promise.all(requests)
             .then(() => {
-                form.style.display = 'none';
-                successMessage.style.display = 'block';
-                submitBtn.innerText = 'Add to Spreadsheet';
-                submitBtn.disabled = false;
+                form.style.display = 'none'; successMessage.style.display = 'block';
+                submitBtn.innerText = 'Add to Spreadsheet'; submitBtn.disabled = false;
             })
             .catch(error => {
-                console.error('Errore!', error);
                 alert('Oops! Qualcosa è andato storto.');
-                submitBtn.innerText = 'Add to Spreadsheet';
-                submitBtn.disabled = false;
+                submitBtn.innerText = 'Add to Spreadsheet'; submitBtn.disabled = false;
             });
         });
 
@@ -357,15 +292,65 @@
             form.reset();
             const container = document.getElementById('date-ranges-container');
             const items = container.querySelectorAll('.date-range-item');
-            for(let i = 1; i < items.length; i++) {
-                items[i].remove();
-            }
-            successMessage.style.display = 'none';
-            form.style.display = 'block';
+            for(let i = 1; i < items.length; i++) items[i].remove();
+            successMessage.style.display = 'none'; form.style.display = 'block';
         }
 
         // ==========================================
-        // TIMELINE ENGINE (PULITO E BIANCO)
+        // EDIT & DELETE LOGIC
+        // ==========================================
+        function openModal(row, nome, status, start, end) {
+            currentRowToEdit = row;
+            document.getElementById('edit-nome').value = nome;
+            document.getElementById('edit-status').value = status;
+            document.getElementById('edit-start').value = start.substring(0, 10);
+            document.getElementById('edit-end').value = end.substring(0, 10);
+            document.getElementById('edit-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('edit-modal').style.display = 'none';
+            currentRowToEdit = null;
+        }
+
+        document.getElementById('edit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('update-btn');
+            btn.innerText = 'Updating... ⏳'; btn.disabled = true;
+
+            const payload = {
+                action: "update",
+                row: currentRowToEdit,
+                nome: document.getElementById('edit-nome').value,
+                status: document.getElementById('edit-status').value,
+                dataInizio: document.getElementById('edit-start').value,
+                dataFine: document.getElementById('edit-end').value
+            };
+
+            fetch(scriptURL, { method: 'POST', headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
+            .then(() => {
+                btn.innerText = 'Update Trip'; btn.disabled = false;
+                closeModal(); loadTrips(); // Ricarica la timeline
+            });
+        });
+
+        function deleteTrip() {
+            if(!confirm("Sei sicuro di voler cancellare questo viaggio?")) return;
+            
+            const btn = document.getElementById('delete-btn');
+            btn.innerText = 'Deleting... 🗑️'; btn.disabled = true;
+
+            const payload = { action: "delete", row: currentRowToEdit };
+
+            fetch(scriptURL, { method: 'POST', headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
+            .then(() => {
+                btn.innerText = 'Delete Trip'; btn.disabled = false;
+                closeModal(); loadTrips();
+            });
+        }
+
+        // ==========================================
+        // TIMELINE ENGINE (GANTT CHART)
         // ==========================================
         function loadTrips() {
             const container = document.getElementById('trips-container');
@@ -378,11 +363,7 @@
                 .then(response => response.json())
                 .then(data => {
                     container.innerHTML = ''; 
-                    
-                    if (data.length === 0) {
-                        emptyState.style.display = 'block';
-                        return;
-                    }
+                    if (data.length === 0) { emptyState.style.display = 'block'; return; }
 
                     const timelineData = {};
                     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -404,21 +385,14 @@
                             const key = `${year}-${month.toString().padStart(2, '0')}`;
 
                             if(!timelineData[key]) {
-                                timelineData[key] = {
-                                    year: year,
-                                    month: month,
-                                    name: `${monthNames[month]} ${year}`,
-                                    days: new Date(year, month + 1, 0).getDate(),
-                                    trips: []
-                                };
+                                timelineData[key] = { year: year, month: month, name: `${monthNames[month]} ${year}`, days: new Date(year, month + 1, 0).getDate(), trips: [] };
                             }
 
                             const startDay = (start.getFullYear() === year && start.getMonth() === month) ? start.getDate() : 1;
                             const endDay = (end.getFullYear() === year && end.getMonth() === month) ? end.getDate() : timelineData[key].days;
 
                             timelineData[key].trips.push({
-                                nome: trip.nome,
-                                status: trip.status,
+                                rawData: trip, // Salviamo i dati originali completi per l'editor
                                 startDay: startDay,
                                 endDay: endDay
                             });
@@ -432,19 +406,12 @@
 
                     sortedKeys.forEach(key => {
                         const monthObj = timelineData[key];
-
-                        html += `<div class="gantt-container">`;
-                        html += `<h3 class="month-header">${monthObj.name}</h3>`;
-                        html += `<div class="gantt-scroll">`;
-                        
-                        // Griglia bianca senza i colori di background inline
+                        html += `<div class="gantt-container"><h3 class="month-header">${monthObj.name}</h3><div class="gantt-scroll">`;
                         html += `<div class="gantt-grid" style="grid-template-columns: repeat(${monthObj.days}, minmax(32px, 1fr));">`;
 
                         for(let d = 1; d <= monthObj.days; d++) {
                             const dateObj = new Date(monthObj.year, monthObj.month, d);
-                            const isWeekend = (dateObj.getDay() === 0 || dateObj.getDay() === 6);
-                            const weekendClass = isWeekend ? 'weekend' : '';
-                            
+                            const weekendClass = (dateObj.getDay() === 0 || dateObj.getDay() === 6) ? 'weekend' : '';
                             html += `<div class="gantt-day-header ${weekendClass}" style="grid-column: ${d}; grid-row: 1;">${d}</div>`;
                         }
 
@@ -452,12 +419,15 @@
                         monthObj.trips.sort((a,b) => a.startDay - b.startDay);
 
                         monthObj.trips.forEach(trip => {
-                            const isMaybe = trip.status.includes('Maybe');
+                            const isMaybe = trip.rawData.status.includes('Maybe');
                             const statusClass = isMaybe ? 'maybe' : 'sure';
                             
+                            // Aggiunto l'evento onclick che passa tutti i dati alla Modal!
                             html += `
-                                <div class="gantt-bar ${statusClass}" style="grid-column: ${trip.startDay} / ${trip.endDay + 1}; grid-row: ${row};">
-                                    <span>${trip.nome}</span>
+                                <div class="gantt-bar ${statusClass}" 
+                                     style="grid-column: ${trip.startDay} / ${trip.endDay + 1}; grid-row: ${row};"
+                                     onclick="openModal(${trip.rawData.row}, '${trip.rawData.nome.replace(/'/g, "\\'")}', '${trip.rawData.status}', '${trip.rawData.dataInizio}', '${trip.rawData.dataFine}')">
+                                    <span>${trip.rawData.nome}</span>
                                 </div>
                             `;
                             row++;
@@ -467,10 +437,6 @@
                     });
 
                     container.innerHTML = html;
-                })
-                .catch(error => {
-                    console.error(error);
-                    container.innerHTML = '<div class="loading-text" style="color: #ef4444;">Error loading data.</div>';
                 });
         }
     </script>
