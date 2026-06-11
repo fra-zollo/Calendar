@@ -76,7 +76,6 @@
         .gantt-day-header { font-size: 0.8rem; color: var(--text-main); text-align: center; border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 6px; margin-bottom: 8px; font-weight: 600; }
         .gantt-day-header.weekend { color: #ef4444; }
 
-        /* Aggiunto cursore a puntatore per far capire che si può cliccare */
         .gantt-bar { border-radius: 6px; font-size: 0.8rem; font-weight: 600; color: white; height: 32px; display: flex; align-items: center; overflow: hidden; padding: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); white-space: nowrap; cursor: pointer; transition: transform 0.1s; }
         .gantt-bar:active { transform: scale(0.98); }
         .gantt-bar.sure { background-color: var(--sure-color); }
@@ -176,7 +175,6 @@
         </div>
     </div>
 
-    <!-- MODAL PER MODIFICARE/CANCELLARE -->
     <div class="modal-overlay" id="edit-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -268,7 +266,7 @@
             
             const requests = Array.from(dateItems).map(item => {
                 const payload = {
-                    action: "add", // Importante per dire a Google cosa fare
+                    action: "add", 
                     nome: nome,
                     status: status,
                     dataInizio: item.querySelector('.start-date').value,
@@ -303,8 +301,11 @@
             currentRowToEdit = row;
             document.getElementById('edit-nome').value = nome;
             document.getElementById('edit-status').value = status;
-            document.getElementById('edit-start').value = start.substring(0, 10);
-            document.getElementById('edit-end').value = end.substring(0, 10);
+            
+            // Usiamo direttamente le date fixate passate come stringa dal frontend
+            document.getElementById('edit-start').value = start;
+            document.getElementById('edit-end').value = end;
+            
             document.getElementById('edit-modal').style.display = 'flex';
         }
 
@@ -330,7 +331,7 @@
             fetch(scriptURL, { method: 'POST', headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
             .then(() => {
                 btn.innerText = 'Update Trip'; btn.disabled = false;
-                closeModal(); loadTrips(); // Ricarica la timeline
+                closeModal(); loadTrips(); 
             });
         });
 
@@ -369,10 +370,17 @@
                     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
                     data.forEach(trip => {
-                        const startStr = trip.dataInizio.substring(0, 10);
-                        const endStr = trip.dataFine.substring(0, 10);
-                        const start = new Date(startStr + "T12:00:00");
-                        const end = new Date(endStr + "T12:00:00");
+                        // FIX FUSO ORARIO: Creiamo un oggetto Date per forzare la lettura nel fuso orario locale
+                        const trueStart = new Date(trip.dataInizio);
+                        const trueEnd = new Date(trip.dataFine);
+                        
+                        // Riassegnamo i valori con stringhe formattate pulite anno-mese-giorno (no bug di orario!)
+                        trip.dataInizio = `${trueStart.getFullYear()}-${String(trueStart.getMonth()+1).padStart(2, '0')}-${String(trueStart.getDate()).padStart(2, '0')}`;
+                        trip.dataFine = `${trueEnd.getFullYear()}-${String(trueEnd.getMonth()+1).padStart(2, '0')}-${String(trueEnd.getDate()).padStart(2, '0')}`;
+                        
+                        // Per il posizionamento usiamo l'orario centrale del giorno (ore 12:00) per evitare arrotondamenti notturni
+                        const start = new Date(trip.dataInizio + "T12:00:00");
+                        const end = new Date(trip.dataFine + "T12:00:00");
                         
                         if(end < start) return;
 
@@ -392,7 +400,7 @@
                             const endDay = (end.getFullYear() === year && end.getMonth() === month) ? end.getDate() : timelineData[key].days;
 
                             timelineData[key].trips.push({
-                                rawData: trip, // Salviamo i dati originali completi per l'editor
+                                rawData: trip, 
                                 startDay: startDay,
                                 endDay: endDay
                             });
@@ -422,7 +430,6 @@
                             const isMaybe = trip.rawData.status.includes('Maybe');
                             const statusClass = isMaybe ? 'maybe' : 'sure';
                             
-                            // Aggiunto l'evento onclick che passa tutti i dati alla Modal!
                             html += `
                                 <div class="gantt-bar ${statusClass}" 
                                      style="grid-column: ${trip.startDay} / ${trip.endDay + 1}; grid-row: ${row};"
